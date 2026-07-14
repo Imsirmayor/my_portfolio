@@ -119,7 +119,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-white">Email</h3>
-                    <p className="text-gray-300">m.adeyemi.e@gmail.com, connect@travellingscholars.com</p>
+                    <p className="text-gray-300">m.adeyemi.e@gmail.com</p>
                   </div>
                 </div>
                 

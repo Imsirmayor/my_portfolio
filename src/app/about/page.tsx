@@ -24,7 +24,7 @@ export default function About() {
             <div className="md:w-2/3">
               <h2 className="text-2xl font-semibold text-white mb-4">My Journey</h2>
               <p className="text-gray-300 mb-6">
-                I am a System Test Engineering graduate with highest distinction from FH Joanneum, possessing strong expertise in IC validation and test methodologies. My journey has taken me from technical roles in Nigeria to international experiences in Austria, where I've blended engineering excellence with global development initiatives.
+                Test Engineer with an MSc in System Test Engineering (Highest Distinction, FH-Joanneum) and hands-on experience spanning semiconductor IC validation and automotive-grade flexible sensor testing. Currently developing test plans, automated test fixture, and validation infrastructure for flexible sensors at FLEXOO GmbH, working directly with test and requirements engineers at automotive partners including Tesla and Forvia. Delivered a master's thesis at AMS-OSRAM that automated test code generation using PDL, Python, and Jinja cutting test program development time from roughly two weeks to under five seconds. Skilled in test plan development (DV/PV), automated test fixture and script design, DAQ/sensor system integration, root-cause failure analysis, and compliance with automotive quality standards (IATF 16949).
               </p>
               <p className="text-gray-300 mb-6">
                 What drives me is the intersection of technology and human impact. While I excel at creating robust test systems and automation frameworks, I'm equally passionate about using technology to empower communities and mentor the next generation of professionals.

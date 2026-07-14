@@ -45,7 +45,7 @@ const conferenceData: Conference[] = [
     skills: ["Public Speaking", "Leadership", "Mentorship", "Storytelling"],
     videoUrl: "/docs/videos/graduation-speech.mp4", // update when the final link is ready
     images: [
-      { url: "/images/conferences/IMG_20251126_170639_709.jpg", caption: "Opening remarks on purposeful engineering", category: "presentation" },
+      { url: "public/images/conferences/IMG_20251126_170639_709.jpg", caption: "Opening remarks on purposeful engineering", category: "presentation" },
       { url: "/images/conferences/IMG_20251130_115133_099.jpg", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/graduation-2.jpg", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/graduation-2.jpg", caption: "Sharing mentorship stories", category: "presentation" },
