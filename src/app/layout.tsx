@@ -1,4 +1,5 @@
 // src/app/layout.tsx
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -7,7 +8,7 @@ import Navigation from '@/components/Navigation'; // Import the component
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Your Name | Portfolio',
+  title: 'Mayowa Adeyemi | Portfolio',
   description: 'Portfolio of a System Test Engineer and Global Development Practitioner',
 };
 
