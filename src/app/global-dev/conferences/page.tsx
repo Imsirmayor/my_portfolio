@@ -21,6 +21,7 @@ interface Conference {
   shortDescription: string;
   skills: string[];
   certificateUrl?: string;
+  verifyUrl?: string;
   videoUrl?: string;
   videos?: {
     url: string;
@@ -51,7 +52,7 @@ const conferenceData: Conference[] = [
     videos: [
       {
         title: "Called to stage to receive certificate",
-        url: "/docs/videos/certificate-collection.MOV"
+        url: "/docs/videos/certificate-collection.mp4"
       },
       {
         title: "Giving the graduation speech",
@@ -111,7 +112,7 @@ const conferenceData: Conference[] = [
     shortDescription: "Premier European event for software testing professionals featuring cutting-edge methodologies.",
     skills: ["Test Automation", "Quality Assurance", "AI Testing", "Networking"],
     certificateUrl: "/docs/certificates/euro-test-2024.pdf",
-    verifyUrl: "https://credentials.europeantestingboard.com/verify/12345",
+    // verifyUrl: "https://credentials.europeantestingboard.com/verify/12345",
     images: [
       {
         url: "/images/conferences/euro-test-1.jpg",
