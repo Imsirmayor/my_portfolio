@@ -21,8 +21,12 @@ interface Conference {
   shortDescription: string;
   skills: string[];
   certificateUrl?: string;
-  verifyUrl?: string;
   videoUrl?: string;
+  videos?: {
+    url: string;
+    title: string;
+    poster?: string;
+  }[];
   presentationUrl?: string;
   images: {
     url: string;
@@ -44,7 +48,20 @@ const conferenceData: Conference[] = [
     description: "Reflections on engineering, community, and mentorship from my graduation keynote. Shared lessons on leading with empathy, building resilient teams, and using technology to serve people.",
     shortDescription: "Keynote on purposeful engineering and mentorship from my graduation.",
     skills: ["Public Speaking", "Leadership", "Mentorship", "Storytelling"],
-    videoUrl: "/docs/videos/IMG_4411.MOV",
+    videos: [
+      {
+        title: "Called to stage to receive certificate",
+        url: "/docs/videos/certificate-collection.MOV"
+      },
+      {
+        title: "Giving the graduation speech",
+        url: "/docs/videos/graduation-speech.mp4"
+      },
+      {
+        title: "Graduates leaving the hall",
+        url: "/docs/videos/graduates-leaving-hall.mp4"
+      }
+    ],
     images: [
       { url: "/images/conferences/IMG_20251126_170639_709.jpg", caption: "Opening remarks on purposeful engineering", category: "presentation" },
       { url: "/images/conferences/IMG_20251130_115133_099.jpg", caption: "Sharing mentorship stories", category: "presentation" },
