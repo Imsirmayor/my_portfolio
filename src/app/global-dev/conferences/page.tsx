@@ -406,7 +406,7 @@ export default function Conferences() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-purple-200">Video</span>
-                <span className="font-semibold">{graduationTalk?.videoUrl ? 'Available' : 'Coming soon'}</span>
+                <span className="font-semibold">{(graduationTalk?.videos?.length || graduationTalk?.videoUrl) ? 'Available' : 'Coming soon'}</span>
               </div>
             </div>
           </div>
@@ -653,23 +653,35 @@ export default function Conferences() {
                   </div>
                 </div>
 
-                {selectedConference.videoUrl && (
+                
+                {(selectedConference.videos?.length || selectedConference.videoUrl) && (
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold text-white mb-2">Watch</h3>
-                    <div className="flex flex-wrap gap-4">
-                      <a
-                        href={selectedConference.videoUrl}
-                        className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Watch video
-                      </a>
-                    </div>
+
+                    {selectedConference.videos?.length ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {selectedConference.videos.map((video) => (
+                          <div key={video.url} className="bg-black/20 border border-white/10 rounded-lg p-3">
+                            <p className="text-sm text-gray-200 mb-2">{video.title}</p>
+                            <video
+                              controls
+                              preload="metadata"
+                              playsInline
+                              className="w-full rounded-lg"
+                              poster={video.poster}
+                            >
+                              <source src={video.url} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <video controls preload="metadata" playsInline className="w-full rounded-lg">
+                        <source src={selectedConference.videoUrl} />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
                   </div>
                 )}
 
