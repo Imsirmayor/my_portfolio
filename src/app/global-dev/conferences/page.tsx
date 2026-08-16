@@ -68,7 +68,7 @@ const conferenceData: Conference[] = [
       { url: "/images/conferences/IMG_20251130_115133_099.jpg", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/IMG_20251126_170631_244.jpg", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/", caption: "Sharing mentorship stories", category: "presentation" },
-      { url: "/images/conferences/graduation-3.jpg", caption: "Celebrating with peers", category: "networking" }
+      { url: "/images/conferences/graduants.jpg", caption: "Celebrating with peers", category: "networking" }
     ],
     featured: true
   },
