@@ -97,41 +97,47 @@ const conferenceData: Conference[] = [
     featured: true
   },
   {
-    id: "euro-test-2024",
-    title: "European Software Testing Conference",
+    id: "esf-social-innovation-2025",
+    title: "First Mutual Learning Event for Beneficiaries (ESF+ Social Innovation+)",
     type: "conference",
-    date: "2024-06-10",
-    endDate: "2024-06-12",
+    date: "2025-05-13",
+    endDate: "2025-05-14",
     location: {
-      city: "Berlin",
-      country: "Germany",
-      venue: "Berlin Congress Center"
+      city: "Warsaw",
+      country: "Poland",
+      venue: "Radisson Collection Hotel"
     },
-    organization: "European Testing Board",
-    description: "Annual gathering of software testing professionals from across Europe, featuring keynote speakers, workshops, and networking opportunities. Focused on emerging trends in test automation, AI in testing, and quality assurance methodologies.",
-    shortDescription: "Premier European event for software testing professionals featuring cutting-edge methodologies.",
-    skills: ["Test Automation", "Quality Assurance", "AI Testing", "Networking"],
-    certificateUrl: "/docs/certificates/euro-test-2024.pdf",
-    // verifyUrl: "https://credentials.europeantestingboard.com/verify/12345",
+    organization: "European Commission (ESF+ Community of Practice on Migrant Integration)",
+    description: "A transnational gathering for beneficiaries working on social innovation and migrant integration projects. The event features high-level keynotes, mutual learning sessions, and interactive workshops aimed at sharing best practices and fostering EU-wide collaboration.",
+    shortDescription: "European mutual learning event focused on social innovation and migrant integration pathways.",
+    skills: ["Social Innovation", "Migrant Integration", "Transnational Collaboration", "Project Management"],
+    certificateUrl: "/docs/certificates/esf-social-innovation-2025.pdf",
+    // verifyUrl: "https://europa.eu",
     images: [
       {
-        url: "/images/conferences/euro-test-1.jpg",
-        caption: "Keynote session on AI in testing",
+        url: "/images/conferences/esf-warsaw-1.jpg",
+        caption: "Opening plenary on European social innovation models",
         category: "presentation"
       },
       {
-        url: "/images/conferences/euro-test-2.jpg",
-        caption: "Networking with industry experts",
+        url: "/images/conferences/esf-warsaw-2.jpg",
+        caption: "Project Fair and transnational networking",
         category: "networking"
       },
       {
-        url: "/images/conferences/IMG_20251130_115133_099.jpg",
-        caption: "Workshop on test automation frameworks",
+        url: "/images/conferences/esf-warsaw-3.jpg",
+        caption: "Sepaking about the comcluded session",
+        category: "networking"
+      },
+      {
+        url: "/images/conferences/esf-warsaw-4.jpg",
+        caption: "Co-creation workshop on integration strategies",
         category: "activity"
       }
     ],
     featured: true
   },
+
   {
     id: "auto-val-2024",
     title: "Automotive Validation Summit",
