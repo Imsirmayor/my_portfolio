@@ -67,7 +67,6 @@ const conferenceData: Conference[] = [
       { url: "/images/conferences/IMG_20251126_170639_709.jpg", caption: "Opening remarks on purposeful engineering", category: "presentation" },
       { url: "/images/conferences/IMG_20251130_115133_099.jpg", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/IMG_20251126_170631_244.jpg", caption: "Sharing mentorship stories", category: "presentation" },
-      { url: "/images/conferences/", caption: "Sharing mentorship stories", category: "presentation" },
       { url: "/images/conferences/graduants.jpg", caption: "Celebrating with peers", category: "networking" }
     ],
     featured: true
@@ -89,10 +88,11 @@ const conferenceData: Conference[] = [
     presentationUrl: "/docs/presentations/Future Career_Planning.pdf",
     videoUrl: "/docs/videos/jobs-internships-2026.mp4",
     images: [
+      { url: "/images/conferences/Me_4.jpeg", caption: "Speaker presenting slides", category: "presentation" },
       { url: "/images/conferences/Me_4.jpeg", caption: "Arrival & networking", category: "networking" },
       { url: "/images/conferences/Panel_Speaking.jpeg", caption: "Panel discussion", category: "presentation" },
       { url: "/images/conferences/Me_4.jpeg", caption: "Speaker presenting slides", category: "presentation" },
-      { url: "/images/conferences/Me.jpeg", caption: "Audience view", category: "venue" }
+      { url: "/images/conferences/Me_3.jpeg", caption: "Audience view", category: "venue" }
     ],
     featured: true
   },
