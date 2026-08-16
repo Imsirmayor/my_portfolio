@@ -1,7 +1,851 @@
+// // src/app/global-dev/conferences/page.tsx
+// 'use client';
+
+// import { useState, useEffect } from 'react';
+
+// // Conference data structure
+// interface Conference {
+//   id: string;
+//   title: string;
+//   type: 'conference' | 'seminar' | 'workshop' | 'course' | 'business_visit' | 'talk';
+//   date: string;
+//   endDate?: string;
+//   location: {
+//     city: string;
+//     country: string;
+//     venue?: string;
+//   };
+//   organization: string;
+//   description: string;
+//   shortDescription: string;
+//   skills: string[];
+//   certificateUrl?: string;
+//   verifyUrl?: string;
+//   videoUrl?: string;
+//   videos?: {
+//     url: string;
+//     title: string;
+//     poster?: string;
+//   }[];
+//   presentationUrl?: string;
+//   images: {
+//     url: string;
+//     caption: string;
+//     category: 'presentation' | 'networking' | 'activity' | 'venue';
+//   }[];
+//   featured: boolean;
+// }
+
+// // Sample conference data
+// const conferenceData: Conference[] = [
+//   {
+//     id: "graduation-speech-2025",
+//     title: "Graduation Keynote: Building With Purpose",
+//     type: "talk",
+//     date: "2025-07-15",
+//     location: { city: "Graz", country: "Austria", venue: "FH Joanneum" },
+//     organization: "FH Joanneum",
+//     description: "Reflections on engineering, community, and mentorship from my graduation keynote. Shared lessons on leading with empathy, building resilient teams, and using technology to serve people.",
+//     shortDescription: "Keynote on purposeful engineering and mentorship from my graduation.",
+//     skills: ["Public Speaking", "Leadership", "Mentorship", "Storytelling"],
+//     videos: [
+//       {
+//         title: "Called to stage to receive certificate",
+//         url: "/docs/videos/certificate-collection.mp4"
+//       },
+//       {
+//         title: "Giving the graduation speech",
+//         url: "/docs/videos/graduation-speech.mp4"
+//       },
+//       {
+//         title: "Graduates leaving the hall",
+//         url: "/docs/videos/graduates-leaving-hall.mp4"
+//       }
+//     ],
+//     images: [
+//       { url: "/images/conferences/IMG_20251126_170639_709.jpg", caption: "Opening remarks on purposeful engineering", category: "presentation" },
+//       { url: "/images/conferences/IMG_20251130_115133_099.jpg", caption: "Sharing mentorship stories", category: "presentation" },
+//       { url: "/images/conferences/IMG_20251126_170631_244.jpg", caption: "Sharing mentorship stories", category: "presentation" },
+//       { url: "/images/conferences/graduants.jpg", caption: "Celebrating with peers", category: "networking" }
+//     ],
+//     featured: true
+//   },
+//   {
+//     id: "jobs-internships-2026",
+//     title: "Jobs & Internship Opportunities",
+//     type: "talk",
+//     date: "2026-08-08",
+//     location: {
+//       city: "Graz",
+//       country: "Austria",
+//       venue: "Rom.-kath. Pfarre Graz - Don Bosco"
+//     },
+//     organization: "NUNSA / Future Is Yours",
+//     description: "Talk about jobs & internship opportunities — how to spot tailored roles, apply early, and navigate career entry.",
+//     shortDescription: "Jobs & internship opportunities — tips and resources.",
+//     skills: ["Career Planning", "Internships", "CVs", "Networking"],
+//     presentationUrl: "/docs/presentations/Future Career_Planning.pdf",
+//     videoUrl: "/docs/videos/jobs-internships-2026.mp4",
+//     images: [
+//       { url: "/images/conferences/Me_4.jpeg", caption: "Speaker presenting slides", category: "presentation" },
+//       { url: "/images/conferences/Me_4.jpeg", caption: "Arrival & networking", category: "networking" },
+//       { url: "/images/conferences/Panel_Speaking.jpeg", caption: "Panel discussion", category: "presentation" },
+//       { url: "/images/conferences/Me_4.jpeg", caption: "Speaker presenting slides", category: "presentation" },
+//       { url: "/images/conferences/Me_3.jpeg", caption: "Audience view", category: "venue" }
+//     ],
+//     featured: true
+//   },
+//   {
+//     id: "esf-social-innovation-2025",
+//     title: "First Mutual Learning Event for Beneficiaries (ESF+ Social Innovation+)",
+//     type: "conference",
+//     date: "2025-05-13",
+//     endDate: "2025-05-14",
+//     location: {
+//       city: "Warsaw",
+//       country: "Poland",
+//       venue: "Radisson Collection Hotel"
+//     },
+//     organization: "European Commission (ESF+ Community of Practice on Migrant Integration)",
+//     description: "A transnational gathering for beneficiaries working on social innovation and migrant integration projects. The event features high-level keynotes, mutual learning sessions, and interactive workshops aimed at sharing best practices and fostering EU-wide collaboration.",
+//     shortDescription: "European mutual learning event focused on social innovation and migrant integration pathways.",
+//     skills: ["Social Innovation", "Migrant Integration", "Transnational Collaboration", "Project Management"],
+//     certificateUrl: "/docs/certificates/esf-social-innovation-2025.pdf",
+//     images: [
+//       {
+//         url: "/images/conferences/esf-warsaw-1.jpg",
+//         caption: "Opening plenary on European social innovation models",
+//         category: "presentation"
+//       },
+//       {
+//         url: "/images/conferences/esf-warsaw-2.jpg",
+//         caption: "Project Fair and transnational networking",
+//         category: "networking"
+//       },
+//       {
+//         url: "/images/conferences/esf-warsaw-3.jpg",
+//         caption: "Sepaking about the comcluded session",
+//         category: "networking"
+//       },
+//       {
+//         url: "/images/conferences/esf-warsaw-4.jpg",
+//         caption: "Co-creation workshop on integration strategies",
+//         category: "activity"
+//       }
+//     ],
+//     featured: true
+//   },
+
+//   {
+//   "id": "infineon-winterschool-2025",
+//   "title": "Infineon WinterSchool 2025 – Shaping the Future through Data Engineering",
+//   "type": "conference",
+//   "date": "2025-02-04",
+//   "endDate": "2025-02-06",
+//   "location": {
+//     "city": "Villach / Digital",
+//     "country": "Austria",
+//     "venue": "Online via Cisco Webex (Infineon Austria)"
+//   },
+//   "organization": "Infineon Technologies Austria AG",
+//   "description": "A three-day digital event focused on advanced data engineering, cybersecurity, and microelectronics. Included deep-dive technical lectures by global university professors and Infineon experts, a virtual 'Exit the Room' engineering challenge, and interactive networking sessions with industry leaders regarding master/PhD research opportunities.",
+//   shortDescription: "Three-day technical winter school by Infineon focused on data engineering, cybersecurity, and smart industry solutions.",
+//   skills: ["Data Engineering", "Cybersecurity", "Microelectronics", "Smart Production", "Data Analytics"],
+//   certificateUrl: "/docs/certificates/Infineon_WinterSchool_2025_Mayowa_Adeyemi.pdf",
+//   images: [
+//     {
+//       url: "/images/conferences/infineon-ws-1.jpg",
+//       caption: "Event Theme",
+//       category: "activity"
+//     },
+//     {
+//       url: "/images/conferences/infineon-ws-2.PNG",
+//       caption: "Interactive 'Exit the Room' team challenge",
+//       category: "activity"
+//     }
+//   ],
+//   featured: true
+//   },
+//   {
+//     id: "flexoo-aumovio-visit-2026",
+//     title: "On-Site Testing Project Collaboration at AUMOVIO",
+//     type: "business_visit",
+//     date: "2026-08-13",
+//     endDate: "2026-08-13",
+//     location: {
+//       city: "Frankfurt am Main",
+//       country: "Germany",
+//       venue: "AUMOVIO SE Headquarters"
+//     },
+//     organization: "Flexoo GmbH",
+//     description: "Technical on-site visit and working session at partner company AUMOVIO SE. Collaborated with colleagues on a joint software and hardware testing project, leveraging specialized expertise to strengthen our corporate partnership.",
+//     shortDescription: "Technical project meeting and testing collaboration at the AUMOVIO headquarters in Frankfurt.",
+//     skills: ["Project Testing", "Cross-Company Collaboration", "Quality Assurance", "Partnership Networking"],
+//     certificateUrl: "",
+//     images: [
+//       {
+//         url: "/images/conferences/aumovio-exterior.jpg",
+//         caption: "Outside the AUMOVIO location during our team visit",
+//         category: "venue"
+//       }
+//     ],
+//     featured: false
+//   },
+
+//   {
+//     id: "python-test-2024",
+//     title: "Python Testing Workshop",
+//     type: "workshop",
+//     date: "2024-02-08",
+//     location: {
+//       city: "Graz",
+//       country: "Austria",
+//       venue: "FH JOANNEUM"
+//     },
+//     organization: "Python Software Foundation",
+//     description: "Hands-on workshop focused on testing methodologies for Python applications. Covered unittest, pytest, and behavior-driven development frameworks.",
+//     shortDescription: "Practical workshop on Python testing frameworks and methodologies.",
+//     skills: ["Python", "pytest", "BDD", "Test Frameworks"],
+//     certificateUrl: "/docs/certificates/python-test-2024.pdf",
+//     images: [
+//       {
+//         url: "/images/conferences/python-workshop-1.jpg",
+//         caption: "Hands-on coding session",
+//         category: "activity"
+//       },
+//       {
+//         url: "/images/conferences/python-workshop-2.jpg",
+//         caption: "Group exercise discussion",
+//         category: "activity"
+//       }
+//     ],
+//     featured: false
+//   },
+//   {
+//     id: "leadership-seminar-2024",
+//     title: "Technical Leadership Seminar",
+//     type: "seminar",
+//     date: "2024-05-20",
+//     endDate: "2024-05-21",
+//     location: {
+//       city: "Zurich",
+//       country: "Switzerland",
+//       venue: "Swiss Tech Convention Center"
+//     },
+//     organization: "Technical Leadership Institute",
+//     description: "Professional development seminar focused on leadership skills for technical professionals. Covered team management, project leadership, and technical decision-making.",
+//     shortDescription: "Professional development for technical leaders and managers.",
+//     skills: ["Leadership", "Team Management", "Project Management", "Communication"],
+//     certificateUrl: "/docs/certificates/leadership-2024.pdf",
+//     images: [
+//       {
+//         url: "/images/conferences/leadership-1.jpg",
+//         caption: "Group discussion session",
+//         category: "activity"
+//       },
+//       {
+//         url: "/images/conferences/leadership-2.jpg",
+//         caption: "Networking with other technical leaders",
+//         category: "networking"
+//       }
+//     ],
+//     featured: false
+//   },
+//   {
+//     id: "eu-project-2024",
+//     title: "EU Project Management Course",
+//     type: "course",
+//     date: "2024-01-15",
+//     endDate: "2024-01-19",
+//     location: {
+//       city: "Brussels",
+//       country: "Belgium",
+//       venue: "European Commission Building"
+//     },
+//     organization: "European Commission",
+//     description: "Intensive course on managing EU-funded projects, covering proposal writing, budgeting, reporting, and compliance requirements. Included case studies of successful EU projects.",
+//     shortDescription: "Comprehensive training on managing European Union funded projects.",
+//     skills: ["Project Management", "EU Funding", "Grant Writing", "Compliance"],
+//     certificateUrl: "/docs/certificates/eu-project-2024.pdf",
+//     images: [
+//       {
+//         url: "/images/conferences/eu-course-1.jpg",
+//         caption: "Course session on EU funding mechanisms",
+//         category: "presentation"
+//       },
+//       {
+//         url: "/images/conferences/eu-course-2.jpg",
+//         caption: "Group work on project proposals",
+//         category: "activity"
+//       }
+//     ],
+//     featured: true
+//   }
+// ];
+
+// // Helper function to format dates consistently
+// const formatDate = (dateString: string) => {
+//   const date = new Date(dateString);
+//   return date.toLocaleDateString('en-US', {
+//     year: 'numeric',
+//     month: 'numeric',
+//     day: 'numeric'
+//   });
+// };
+
+// // Helper function to format date range consistently
+// const formatDateRange = (startDate: string, endDate?: string) => {
+//   if (!endDate) return formatDate(startDate);
+//   const start = new Date(startDate);
+//   const end = new Date(endDate);
+  
+//   // Check if same month and year
+//   if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+//     return `${start.getDate()} - ${end.getDate()} ${start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`;
+//   }
+  
+//   return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+// };
+
+// const talks = conferenceData.filter(c => c.type === 'talk');
+// const graduationTalk = conferenceData.find(c => c.id === 'graduation-speech-2025');
+
+// // Extract unique values for filters
+// const allTypes = Array.from(new Set(conferenceData.map(item => item.type)));
+// const allYears = Array.from(new Set(conferenceData.map(item => new Date(item.date).getFullYear().toString()))).sort((a, b) => b.localeCompare(a));
+// const allLocations = Array.from(new Set(conferenceData.map(item => item.location.country)));
+// const allSkills = Array.from(new Set(conferenceData.flatMap(item => item.skills)));
+
+// export default function Conferences() {
+//   const [activeFilters, setActiveFilters] = useState({
+//     type: 'all',
+//     year: 'all',
+//     location: 'all',
+//     search: ''
+//   });
+
+//   const [selectedConference, setSelectedConference] = useState<Conference | null>(null);
+//   const [galleryImage, setGalleryImage] = useState<{url: string, caption: string} | null>(null);
+//   const [activeGallery, setActiveGallery] = useState<string | null>(null);
+
+//   // Filter conferences based on active filters
+//   const filteredConferences = conferenceData.filter(conference => {
+//     const matchesType = activeFilters.type === 'all' || conference.type === activeFilters.type;
+//     const matchesYear = activeFilters.year === 'all' || new Date(conference.date).getFullYear().toString() === activeFilters.year;
+//     const matchesLocation = activeFilters.location === 'all' || conference.location.country === activeFilters.location;
+//     const matchesSearch = activeFilters.search === '' ||
+//       conference.title.toLowerCase().includes(activeFilters.search.toLowerCase()) ||
+//       conference.description.toLowerCase().includes(activeFilters.search.toLowerCase()) ||
+//       conference.skills.some(skill => skill.toLowerCase().includes(activeFilters.search.toLowerCase()));
+
+//     return matchesType && matchesYear && matchesLocation && matchesSearch;
+//   });
+
+//   const handleFilterChange = (filterType: string, value: string) => {
+//     setActiveFilters(prev => ({
+//       ...prev,
+//       [filterType]: value
+//     }));
+//   };
+
+//   const resetFilters = () => {
+//     setActiveFilters({
+//       type: 'all',
+//       year: 'all',
+//       location: 'all',
+//       search: ''
+//     });
+//   };
+
+//   const openConferenceModal = (conference: Conference) => {
+//     setSelectedConference(conference);
+//   };
+
+//   const openGallery = (conferenceId: string) => {
+//     setActiveGallery(conferenceId);
+//   };
+
+//   const openImageModal = (image: {url: string, caption: string}) => {
+//     setGalleryImage(image);
+//   };
+
+//   // Statistics for the hero section
+//   const conferenceCount = conferenceData.length;
+//   const countries = Array.from(new Set(conferenceData.map(c => c.location.country))).length;
+//   const certifications = conferenceData.filter(c => c.certificateUrl).length;
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-16">
+//       <div className="max-w-7xl mx-auto px-4 py-12">
+//         {/* Hero Section */}
+//         <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 mb-8 text-center">
+//           <h1 className="text-4xl font-bold text-white mb-4">Conferences & Professional Development</h1>
+//           <p className="text-xl text-blue-200 mb-6">International knowledge sharing, skill development, and professional networking</p>
+
+//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+//             <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+//               <div className="text-3xl font-bold text-white">{conferenceCount}+</div>
+//               <div className="text-blue-200">Events Attended</div>
+//             </div>
+//             <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+//               <div className="text-3xl font-bold text-white">{countries}+</div>
+//               <div className="text-blue-200">Countries</div>
+//             </div>
+//             <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+//               <div className="text-3xl font-bold text-white">{certifications}+</div>
+//               <div className="text-blue-200">Certifications</div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Talks Section */}
+//         <div id="talks" className="bg-purple-900/20 backdrop-blur-md rounded-2xl border border-purple-500/30 p-6 mb-8">
+//           <div className="flex flex-col md:flex-row gap-6 items-start">
+//             <div className="flex-1">
+//               <p className="text-sm uppercase tracking-wide text-purple-200 mb-2">Talks</p>
+//               <h2 className="text-2xl font-semibold text-white mb-3">Graduation Speech & Keynotes</h2>
+//               <p className="text-purple-100 mb-4">
+//                 Watch the graduation keynote and browse other talks. Filter to &quot;Talks&quot; to see them first.
+//               </p>
+//               <div className="flex flex-wrap gap-3">
+//                 <button
+//                   onClick={() => handleFilterChange('type', 'talk')}
+//                   className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+//                 >
+//                   Show talks only
+//                 </button>
+//                 {graduationTalk && (
+//                   <button
+//                     onClick={() => openConferenceModal(graduationTalk)}
+//                     className="bg-white/10 text-white px-5 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition-colors"
+//                   >
+//                     View graduation speech
+//                   </button>
+//                 )}
+//               </div>
+//             </div>
+//             <div className="md:w-1/3 bg-white/5 rounded-xl border border-white/10 p-4 text-white">
+//               <div className="flex items-center justify-between mb-2">
+//                 <span className="text-sm text-purple-200">Talks live</span>
+//                 <span className="font-semibold">{talks.length}</span>
+//               </div>
+//               <div className="flex items-center justify-between">
+//                 <span className="text-sm text-purple-200">Video</span>
+//                 <span className="font-semibold">{(graduationTalk?.videos?.length || graduationTalk?.videoUrl) ? 'Available' : 'Coming soon'}</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Filter Section */}
+//         <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 mb-8">
+//           <div className="flex justify-between items-center mb-4">
+//             <h2 className="text-xl font-semibold text-white">Filter Events</h2>
+//             <button
+//               onClick={resetFilters}
+//               className="text-blue-400 hover:text-blue-300 text-sm"
+//             >
+//               Reset All Filters
+//             </button>
+//           </div>
+
+//           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+//             {/* Search Filter */}
+//             <div>
+//               <label className="block text-gray-300 text-sm mb-2">Search</label>
+//               <input
+//                 type="text"
+//                 placeholder="Search events..."
+//                 value={activeFilters.search}
+//                 onChange={(e) => handleFilterChange('search', e.target.value)}
+//                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               />
+//             </div>
+
+//             {/* Type Filter */}
+//             <div>
+//               <label className="block text-gray-300 text-sm mb-2">Event Type</label>
+//               <select
+//                 value={activeFilters.type}
+//                 onChange={(e) => handleFilterChange('type', e.target.value)}
+//                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               >
+//                 <option value="all">All Types</option>
+//                 {allTypes.map(type => (
+//                   <option key={type} value={type}>
+//                     {type.charAt(0).toUpperCase() + type.slice(1)}
+//                   </option>
+//                 ))}
+//               </select>
+//             </div>
+
+//             {/* Year Filter */}
+//             <div>
+//               <label className="block text-gray-300 text-sm mb-2">Year</label>
+//               <select
+//                 value={activeFilters.year}
+//                 onChange={(e) => handleFilterChange('year', e.target.value)}
+//                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               >
+//                 <option value="all">All Years</option>
+//                 {allYears.map(year => (
+//                   <option key={year} value={year}>{year}</option>
+//                 ))}
+//               </select>
+//             </div>
+
+//             {/* Location Filter */}
+//             <div>
+//               <label className="block text-gray-300 text-sm mb-2">Location</label>
+//               <select
+//                 value={activeFilters.location}
+//                 onChange={(e) => handleFilterChange('location', e.target.value)}
+//                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               >
+//                 <option value="all">All Locations</option>
+//                 {allLocations.map(location => (
+//                   <option key={location} value={location}>{location}</option>
+//                 ))}
+//               </select>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Conference Grid */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+//           {filteredConferences.map(conference => (
+//             <div
+//               key={conference.id}
+//               id={conference.id}
+//               className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden hover:border-white/20 transition-colors"
+//             >
+//               {/* Conference Image */}
+//               <div className="h-48 relative overflow-hidden">
+//                 {conference.images && conference.images.length > 0 ? (
+//                   <img
+//                     src={conference.images[0].url}
+//                     alt={conference.images[0].caption || conference.title}
+//                     className="absolute inset-0 w-full h-full object-cover"
+//                   />
+//                 ) : (
+//                   <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
+//                     <svg className="w-12 h-12 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-4 0H9m4 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m4 0V9m0 12h2m-2 0h4m0 0h2m-2 0v-4m0 4v-4m0 0h-4m4 0v-4m0 4v-4" />
+//                     </svg>
+//                   </div>
+//                 )}
+
+//                 <div className="absolute top-4 left-4">
+//                   <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+//                     {conference.type}
+//                   </span>
+//                 </div>
+//                 {conference.featured && (
+//                   <div className="absolute top-4 right-4">
+//                     <span className="bg-yellow-600 text-white text-xs px-2 py-1 rounded-full">
+//                       Featured
+//                     </span>
+//                   </div>
+//                 )}
+//               </div>
+
+//               <div className="p-6">
+//                 <h3 className="text-xl font-semibold text-white mb-2">{conference.title}</h3>
+//                 <div className="flex items-center text-gray-300 text-sm mb-3">
+//                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+//                   </svg>
+//                   {formatDateRange(conference.date, conference.endDate)}
+//                 </div>
+//                 <div className="flex items-center text-gray-300 text-sm mb-4">
+//                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+//                   </svg>
+//                   {conference.location.city}, {conference.location.country}
+//                 </div>
+
+//                 <p className="text-gray-300 text-sm mb-4">{conference.shortDescription}</p>
+
+//                 <div className="flex flex-wrap gap-2 mb-4">
+//                   {conference.skills.map(skill => (
+//                     <span key={skill} className="bg-blue-600/20 text-blue-300 text-xs px-2 py-1 rounded-full">
+//                       {skill}
+//                     </span>
+//                   ))}
+//                 </div>
+
+//                 <div className="flex flex-wrap gap-2">
+//                   <button
+//                     onClick={() => openConferenceModal(conference)}
+//                     className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors"
+//                   >
+//                     View Details
+//                   </button>
+//                   {conference.certificateUrl && (
+//                     <a
+//                       href={conference.certificateUrl}
+//                       className="bg-white/10 text-white px-4 py-2 rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-colors"
+//                       target="_blank"
+//                       rel="noopener noreferrer"
+//                     >
+//                       View Certificate
+//                     </a>
+//                   )}
+//                   <button
+//                     onClick={() => openGallery(conference.id)}
+//                     className="bg-white/10 text-white px-4 py-2 rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-colors"
+//                   >
+//                     View Photos
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+
+//         {/* No Results Message */}
+//         {filteredConferences.length === 0 && (
+//           <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center">
+//             <h3 className="text-xl font-semibold text-white mb-2">No events match your filters</h3>
+//             <p className="text-gray-300">Try adjusting your search criteria or resetting the filters</p>
+//             <button
+//               onClick={resetFilters}
+//               className="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700 transition-colors"
+//             >
+//               Reset Filters
+//             </button>
+//           </div>
+//         )}
+
+//         {/* Conference Modal */}
+//         {selectedConference && (
+//           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+//             <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+//               <div className="p-6">
+//                 <div className="flex justify-between items-start mb-6">
+//                   <h2 className="text-2xl font-bold text-white">{selectedConference.title}</h2>
+//                   <button
+//                     onClick={() => setSelectedConference(null)}
+//                     className="text-gray-400 hover:text-white"
+//                   >
+//                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                     </svg>
+//                   </button>
+//                 </div>
+
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+//                   <div className="flex items-center text-gray-300">
+//                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+//                     </svg>
+//                     {formatDateRange(selectedConference.date, selectedConference.endDate)}
+//                   </div>
+
+//                   <div className="flex items-center text-gray-300">
+//                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+//                     </svg>
+//                     {selectedConference.location.venue && `${selectedConference.location.venue}, `}
+//                     {selectedConference.location.city}, {selectedConference.location.country}
+//                   </div>
+
+//                   <div className="flex items-center text-gray-300">
+//                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-4 0H9m4 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m4 0V9m0 12h2m-2 0h4m0 0h2m-2 0v-4m0 4v-4m0 0h-4m4 0v-4m0 4v-4" />
+//                     </svg>
+//                     {selectedConference.organization}
+//                   </div>
+//                 </div>
+
+//                 <div className="mb-6">
+//                   <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
+//                   <p className="text-gray-300">{selectedConference.description}</p>
+//                 </div>
+
+//                 <div className="mb-6">
+//                   <h3 className="text-lg font-semibold text-white mb-2">Skills & Topics</h3>
+//                   <div className="flex flex-wrap gap-2">
+//                     {selectedConference.skills.map(skill => (
+//                       <span key={skill} className="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full">
+//                         {skill}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 </div>
+
+//                 {(selectedConference.videos?.length || selectedConference.videoUrl) && (
+//                   <div className="mb-6">
+//                     <h3 className="text-lg font-semibold text-white mb-2">Watch</h3>
+
+//                     {selectedConference.videos?.length ? (
+//                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                         {selectedConference.videos.map((video) => (
+//                           <div key={video.url} className="bg-black/20 border border-white/10 rounded-lg p-3">
+//                             <p className="text-sm text-gray-200 mb-2">{video.title}</p>
+//                             <video
+//                               controls
+//                               preload="metadata"
+//                               playsInline
+//                               className="w-full rounded-lg"
+//                               poster={video.poster}
+//                             >
+//                               <source src={video.url} type="video/mp4" />
+//                               Your browser does not support the video tag.
+//                             </video>
+//                           </div>
+//                         ))}
+//                       </div>
+//                     ) : (
+//                       <video controls preload="metadata" playsInline className="w-full rounded-lg">
+//                         <source src={selectedConference.videoUrl} />
+//                         Your browser does not support the video tag.
+//                       </video>
+//                     )}
+//                   </div>
+//                 )}
+
+//                 {selectedConference.presentationUrl && (
+//                   <div className="mb-6">
+//                     <h3 className="text-lg font-semibold text-white mb-2">Presentation</h3>
+//                     <div className="flex flex-wrap gap-4">
+//                       <a
+//                         href={selectedConference.presentationUrl}
+//                         className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+//                         target="_blank"
+//                         rel="noopener noreferrer"
+//                       >
+//                         Open presentation (PDF)
+//                       </a>
+//                     </div>
+
+//                     <div className="w-full mt-4">
+//                       <iframe
+//                         src={selectedConference.presentationUrl}
+//                         className="w-full h-[480px] rounded-lg border"
+//                         title="Presentation PDF"
+//                       />
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 {selectedConference.certificateUrl && (
+//                   <div className="mb-6">
+//                     <h3 className="text-lg font-semibold text-white mb-2">Certification</h3>
+//                     <div className="flex flex-wrap gap-4">
+//                       <a
+//                         href={selectedConference.certificateUrl}
+//                         className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+//                         target="_blank"
+//                         rel="noopener noreferrer"
+//                       >
+//                         View Certificate
+//                       </a>
+//                       {selectedConference.verifyUrl && (
+//                         <a
+//                           href={selectedConference.verifyUrl}
+//                           className="bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition-colors"
+//                           target="_blank"
+//                           rel="noopener noreferrer"
+//                         >
+//                           Verify Credential
+//                         </a>
+//                       )}
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 <div>
+//                   <h3 className="text-lg font-semibold text-white mb-4">Event Photos</h3>
+//                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+//                     {selectedConference.images.slice(0, 6).map((image, index) => (
+//                       <div
+//                         key={index}
+//                         className="aspect-square bg-gray-700 rounded-lg cursor-pointer hover:opacity-80 transition-opacity overflow-hidden"
+//                         onClick={() => openImageModal(image)}
+//                       >
+//                         <img src={image.url} alt={image.caption} className="w-full h-full object-cover" />
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Gallery Modal */}
+//         {activeGallery && (
+//           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+//             <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+//               <div className="p-6">
+//                 <div className="flex justify-between items-start mb-6">
+//                   <h2 className="text-2xl font-bold text-white">
+//                     {conferenceData.find(c => c.id === activeGallery)?.title} Photos
+//                   </h2>
+//                   <button
+//                     onClick={() => setActiveGallery(null)}
+//                     className="text-gray-400 hover:text-white"
+//                   >
+//                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                     </svg>
+//                   </button>
+//                 </div>
+
+//                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+//                   {conferenceData.find(c => c.id === activeGallery)?.images.map((image, index) => (
+//                     <div
+//                       key={index}
+//                       className="aspect-square bg-gray-700 rounded-lg cursor-pointer hover:opacity-80 transition-opacity overflow-hidden"
+//                       onClick={() => openImageModal(image)}
+//                     >
+//                       <img src={image.url} alt={image.caption} className="w-full h-full object-cover" />
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Image Modal */}
+//         {galleryImage && (
+//           <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+//             <div className="relative max-w-4xl w-full">
+//               <button
+//                 onClick={() => setGalleryImage(null)}
+//                 className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 z-10"
+//               >
+//                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                 </svg>
+//               </button>
+
+//               <div className="bg-gray-800 rounded-lg overflow-hidden">
+//                 <div className="h-[80vh] bg-gray-700 flex items-center justify-center">
+//                   <img src={galleryImage.url} alt={galleryImage.caption} className="object-contain max-h-full" />
+//                 </div>
+
+//                 <div className="p-4">
+//                   <p className="text-white text-center">{galleryImage.caption}</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
 // src/app/global-dev/conferences/page.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
 
 // Conference data structure
 interface Conference {
@@ -314,9 +1158,8 @@ const graduationTalk = conferenceData.find(c => c.id === 'graduation-speech-2025
 const allTypes = Array.from(new Set(conferenceData.map(item => item.type)));
 const allYears = Array.from(new Set(conferenceData.map(item => new Date(item.date).getFullYear().toString()))).sort((a, b) => b.localeCompare(a));
 const allLocations = Array.from(new Set(conferenceData.map(item => item.location.country)));
-const allSkills = Array.from(new Set(conferenceData.flatMap(item => item.skills)));
 
-export default function Conferences() {
+export default function ConferencesPage() {
   const [activeFilters, setActiveFilters] = useState({
     type: 'all',
     year: 'all',
@@ -375,100 +1218,114 @@ export default function Conferences() {
   const certifications = conferenceData.filter(c => c.certificateUrl).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-16">
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 mb-8 text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Conferences & Professional Development</h1>
-          <p className="text-xl text-blue-200 mb-6">International knowledge sharing, skill development, and professional networking</p>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_20%_20%,#0f172a_0%,#0b1220_45%,#05070d_100%)] text-white pt-16">
+      {/* Background Glows */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="absolute top-24 -right-16 h-80 w-80 rounded-full bg-emerald-500/20 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-amber-500/10 blur-3xl" />
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Hero Section */}
+        <div className="rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-sm p-6 sm:p-8 mb-8 text-center">
+          <p className="mb-2 inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1 text-xs tracking-[0.2em] text-blue-200 uppercase">
+            Professional Development
+          </p>
+          <h1 className="text-4xl font-semibold leading-tight text-white sm:text-5xl">
+            Conferences & Professional Development
+          </h1>
+          <p className="mt-3 text-blue-200/80 max-w-2xl mx-auto">
+            International knowledge sharing, skill development, and professional networking
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            <div className="rounded-xl border border-blue-500/30 bg-blue-600/10 p-4 backdrop-blur-sm">
               <div className="text-3xl font-bold text-white">{conferenceCount}+</div>
               <div className="text-blue-200">Events Attended</div>
             </div>
-            <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-600/10 p-4 backdrop-blur-sm">
               <div className="text-3xl font-bold text-white">{countries}+</div>
-              <div className="text-blue-200">Countries</div>
+              <div className="text-emerald-200">Countries</div>
             </div>
-            <div className="bg-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+            <div className="rounded-xl border border-amber-500/30 bg-amber-600/10 p-4 backdrop-blur-sm">
               <div className="text-3xl font-bold text-white">{certifications}+</div>
-              <div className="text-blue-200">Certifications</div>
+              <div className="text-amber-200">Certifications</div>
             </div>
           </div>
         </div>
 
         {/* Talks Section */}
-        <div id="talks" className="bg-purple-900/20 backdrop-blur-md rounded-2xl border border-purple-500/30 p-6 mb-8">
+        <div id="talks" className="rounded-2xl border border-purple-500/25 bg-gradient-to-b from-purple-500/10 to-transparent p-6 sm:p-8 mb-8">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1">
-              <p className="text-sm uppercase tracking-wide text-purple-200 mb-2">Talks</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-purple-200 mb-2">Talks</p>
               <h2 className="text-2xl font-semibold text-white mb-3">Graduation Speech & Keynotes</h2>
-              <p className="text-purple-100 mb-4">
+              <p className="text-purple-100/80 mb-4 max-w-2xl">
                 Watch the graduation keynote and browse other talks. Filter to &quot;Talks&quot; to see them first.
               </p>
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => handleFilterChange('type', 'talk')}
-                  className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                  className="rounded-lg bg-purple-500 px-5 py-2 font-medium text-white transition hover:bg-purple-400"
                 >
                   Show talks only
                 </button>
                 {graduationTalk && (
                   <button
                     onClick={() => openConferenceModal(graduationTalk)}
-                    className="bg-white/10 text-white px-5 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition-colors"
+                    className="rounded-lg border border-white/20 bg-white/5 px-5 py-2 text-white transition hover:bg-white/10"
                   >
                     View graduation speech
                   </button>
                 )}
               </div>
             </div>
-            <div className="md:w-1/3 bg-white/5 rounded-xl border border-white/10 p-4 text-white">
+            <div className="md:w-1/3 rounded-xl border border-white/10 bg-white/[0.04] p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-purple-200">Talks live</span>
-                <span className="font-semibold">{talks.length}</span>
+                <span className="font-semibold text-white">{talks.length}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-purple-200">Video</span>
-                <span className="font-semibold">{(graduationTalk?.videos?.length || graduationTalk?.videoUrl) ? 'Available' : 'Coming soon'}</span>
+                <span className="font-semibold text-white">{(graduationTalk?.videos?.length || graduationTalk?.videoUrl) ? 'Available' : 'Coming soon'}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Filter Section */}
-        <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 mb-8">
-          <div className="flex justify-between items-center mb-4">
+        <div className="rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-sm p-6 sm:p-8 mb-8">
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
             <h2 className="text-xl font-semibold text-white">Filter Events</h2>
             <button
               onClick={resetFilters}
-              className="text-blue-400 hover:text-blue-300 text-sm"
+              className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
             >
               Reset All Filters
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Search Filter */}
             <div>
-              <label className="block text-gray-300 text-sm mb-2">Search</label>
+              <label className="block text-slate-300 text-sm mb-2">Search</label>
               <input
                 type="text"
                 placeholder="Search events..."
                 value={activeFilters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             {/* Type Filter */}
             <div>
-              <label className="block text-gray-300 text-sm mb-2">Event Type</label>
+              <label className="block text-slate-300 text-sm mb-2">Event Type</label>
               <select
                 value={activeFilters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">All Types</option>
                 {allTypes.map(type => (
@@ -481,11 +1338,11 @@ export default function Conferences() {
 
             {/* Year Filter */}
             <div>
-              <label className="block text-gray-300 text-sm mb-2">Year</label>
+              <label className="block text-slate-300 text-sm mb-2">Year</label>
               <select
                 value={activeFilters.year}
                 onChange={(e) => handleFilterChange('year', e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">All Years</option>
                 {allYears.map(year => (
@@ -496,11 +1353,11 @@ export default function Conferences() {
 
             {/* Location Filter */}
             <div>
-              <label className="block text-gray-300 text-sm mb-2">Location</label>
+              <label className="block text-slate-300 text-sm mb-2">Location</label>
               <select
                 value={activeFilters.location}
                 onChange={(e) => handleFilterChange('location', e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">All Locations</option>
                 {allLocations.map(location => (
@@ -513,14 +1370,14 @@ export default function Conferences() {
 
         {/* Conference Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredConferences.map(conference => (
+          {filteredConferences.map((conference) => (
             <div
               key={conference.id}
               id={conference.id}
-              className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden hover:border-white/20 transition-colors"
+              className="rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-sm overflow-hidden transition hover:border-white/25 hover:translate-y-[-2px]"
             >
               {/* Conference Image */}
-              <div className="h-48 relative overflow-hidden">
+              <div className="h-48 relative overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
                 {conference.images && conference.images.length > 0 ? (
                   <img
                     src={conference.images[0].url}
@@ -528,21 +1385,21 @@ export default function Conferences() {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-                    <svg className="w-12 h-12 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg className="w-12 h-12 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-4 0H9m4 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m4 0V9m0 12h2m-2 0h4m0 0h2m-2 0v-4m0 4v-4m0 0h-4m4 0v-4m0 4v-4" />
                     </svg>
                   </div>
                 )}
 
-                <div className="absolute top-4 left-4">
-                  <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-blue-600/80 backdrop-blur-sm text-white text-xs px-3 py-1">
                     {conference.type}
                   </span>
                 </div>
                 {conference.featured && (
                   <div className="absolute top-4 right-4">
-                    <span className="bg-yellow-600 text-white text-xs px-2 py-1 rounded-full">
+                    <span className="rounded-full bg-amber-500/80 backdrop-blur-sm text-white text-xs px-3 py-1">
                       Featured
                     </span>
                   </div>
@@ -550,53 +1407,58 @@ export default function Conferences() {
               </div>
 
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2">{conference.title}</h3>
-                <div className="flex items-center text-gray-300 text-sm mb-3">
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">{conference.title}</h3>
+                <div className="flex items-center text-slate-300 text-sm mb-1">
+                  <svg className="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   {formatDateRange(conference.date, conference.endDate)}
                 </div>
-                <div className="flex items-center text-gray-300 text-sm mb-4">
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center text-slate-300 text-sm mb-3">
+                  <svg className="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   {conference.location.city}, {conference.location.country}
                 </div>
 
-                <p className="text-gray-300 text-sm mb-4">{conference.shortDescription}</p>
+                <p className="text-slate-300 text-sm mb-4 line-clamp-2">{conference.shortDescription}</p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {conference.skills.map(skill => (
-                    <span key={skill} className="bg-blue-600/20 text-blue-300 text-xs px-2 py-1 rounded-full">
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {conference.skills.slice(0, 4).map((skill) => (
+                    <span key={skill} className="bg-blue-600/20 text-blue-300 text-xs px-2.5 py-1 rounded-full">
                       {skill}
                     </span>
                   ))}
+                  {conference.skills.length > 4 && (
+                    <span className="text-slate-400 text-xs px-2.5 py-1">
+                      +{conference.skills.length - 4}
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => openConferenceModal(conference)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors"
+                    className="flex-1 min-w-[80px] rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
                   >
                     View Details
                   </button>
                   {conference.certificateUrl && (
                     <a
                       href={conference.certificateUrl}
-                      className="bg-white/10 text-white px-4 py-2 rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-colors"
+                      className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white transition hover:bg-white/10"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      View Certificate
+                      Certificate
                     </a>
                   )}
                   <button
                     onClick={() => openGallery(conference.id)}
-                    className="bg-white/10 text-white px-4 py-2 rounded-lg text-sm border border-white/20 hover:bg-white/20 transition-colors"
+                    className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white transition hover:bg-white/10"
                   >
-                    View Photos
+                    Photos
                   </button>
                 </div>
               </div>
@@ -606,12 +1468,12 @@ export default function Conferences() {
 
         {/* No Results Message */}
         {filteredConferences.length === 0 && (
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center">
+          <div className="rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-sm p-8 text-center">
             <h3 className="text-xl font-semibold text-white mb-2">No events match your filters</h3>
-            <p className="text-gray-300">Try adjusting your search criteria or resetting the filters</p>
+            <p className="text-slate-300">Try adjusting your search criteria or resetting the filters</p>
             <button
               onClick={resetFilters}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700 transition-colors"
+              className="mt-4 rounded-lg bg-blue-600 px-6 py-2.5 text-white transition hover:bg-blue-700"
             >
               Reset Filters
             </button>
@@ -621,7 +1483,7 @@ export default function Conferences() {
         {/* Conference Modal */}
         {selectedConference && (
           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-            <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/10">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
                   <h2 className="text-2xl font-bold text-white">{selectedConference.title}</h2>
@@ -637,14 +1499,14 @@ export default function Conferences() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="flex items-center text-gray-300">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     {formatDateRange(selectedConference.date, selectedConference.endDate)}
                   </div>
 
                   <div className="flex items-center text-gray-300">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -653,7 +1515,7 @@ export default function Conferences() {
                   </div>
 
                   <div className="flex items-center text-gray-300">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-4 0H9m4 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m4 0V9m0 12h2m-2 0h4m0 0h2m-2 0v-4m0 4v-4m0 0h-4m4 0v-4m0 4v-4" />
                     </svg>
                     {selectedConference.organization}
@@ -668,8 +1530,8 @@ export default function Conferences() {
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-white mb-2">Skills & Topics</h3>
                   <div className="flex flex-wrap gap-2">
-                    {selectedConference.skills.map(skill => (
-                      <span key={skill} className="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full">
+                    {selectedConference.skills.map((skill) => (
+                      <span key={skill} className="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">
                         {skill}
                       </span>
                     ))}
@@ -724,7 +1586,7 @@ export default function Conferences() {
                     <div className="w-full mt-4">
                       <iframe
                         src={selectedConference.presentationUrl}
-                        className="w-full h-[480px] rounded-lg border"
+                        className="w-full h-[480px] rounded-lg border border-white/10"
                         title="Presentation PDF"
                       />
                     </div>
@@ -779,7 +1641,7 @@ export default function Conferences() {
         {/* Gallery Modal */}
         {activeGallery && (
           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-            <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/10">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
                   <h2 className="text-2xl font-bold text-white">
@@ -817,19 +1679,19 @@ export default function Conferences() {
             <div className="relative max-w-4xl w-full">
               <button
                 onClick={() => setGalleryImage(null)}
-                className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 z-10"
+                className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 z-10 hover:bg-black/70 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
-              <div className="bg-gray-800 rounded-lg overflow-hidden">
+              <div className="bg-gray-800 rounded-lg overflow-hidden border border-white/10">
                 <div className="h-[80vh] bg-gray-700 flex items-center justify-center">
                   <img src={galleryImage.url} alt={galleryImage.caption} className="object-contain max-h-full" />
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 bg-gray-800/90">
                   <p className="text-white text-center">{galleryImage.caption}</p>
                 </div>
               </div>
