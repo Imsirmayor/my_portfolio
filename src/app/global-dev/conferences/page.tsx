@@ -1,4 +1,3 @@
-
 // src/app/global-dev/conferences/page.tsx
 'use client';
 
@@ -8,7 +7,7 @@ import { useState, useEffect } from 'react';
 interface Conference {
   id: string;
   title: string;
-  type: 'conference' | 'seminar' | 'workshop' | 'course' | 'talk';
+  type: 'conference' | 'seminar' | 'workshop' | 'course' | 'business_visit' | 'talk';
   date: string;
   endDate?: string;
   location: {
@@ -112,7 +111,6 @@ const conferenceData: Conference[] = [
     shortDescription: "European mutual learning event focused on social innovation and migrant integration pathways.",
     skills: ["Social Innovation", "Migrant Integration", "Transnational Collaboration", "Project Management"],
     certificateUrl: "/docs/certificates/esf-social-innovation-2025.pdf",
-    // verifyUrl: "https://europa.eu",
     images: [
       {
         url: "/images/conferences/esf-warsaw-1.jpg",
@@ -139,65 +137,61 @@ const conferenceData: Conference[] = [
   },
 
   {
-    id: "auto-val-2024",
-    title: "Automotive Validation Summit",
-    type: "conference",
-    date: "2024-03-15",
-    endDate: "2024-03-16",
-    location: {
-      city: "Munich",
-      country: "Germany",
-      venue: "Motorworld Munich"
+  "id": "infineon-winterschool-2025",
+  "title": "Infineon WinterSchool 2025 – Shaping the Future through Data Engineering",
+  "type": "conference",
+  "date": "2025-02-04",
+  "endDate": "2025-02-06",
+  "location": {
+    "city": "Villach / Digital",
+    "country": "Austria",
+    "venue": "Online via Cisco Webex (Infineon Austria)"
+  },
+  "organization": "Infineon Technologies Austria AG",
+  "description": "A three-day digital event focused on advanced data engineering, cybersecurity, and microelectronics. Included deep-dive technical lectures by global university professors and Infineon experts, a virtual 'Exit the Room' engineering challenge, and interactive networking sessions with industry leaders regarding master/PhD research opportunities.",
+  shortDescription: "Three-day technical winter school by Infineon focused on data engineering, cybersecurity, and smart industry solutions.",
+  skills: ["Data Engineering", "Cybersecurity", "Microelectronics", "Smart Production", "Data Analytics"],
+  certificateUrl: "/docs/certificates/Infineon_WinterSchool_2025_Mayowa_Adeyemi.pdf",
+  images: [
+    {
+      url: "/images/conferences/infineon-ws-1.jpg",
+      caption: "Event Theme",
+      category: "activity"
     },
-    organization: "Automotive Engineers Association",
-    description: "Focused on validation methodologies for automotive systems, including ADAS, autonomous driving, and electric vehicle technologies. Hands-on workshops with industry-standard tools and technologies.",
-    shortDescription: "Specialized conference on automotive system validation and testing methodologies.",
-    skills: ["Automotive Systems", "ADAS Validation", "CANoe", "TestStand"],
-    certificateUrl: "/docs/certificates/auto-val-2024.pdf",
-    images: [
-      {
-        url: "/images/conferences/auto-val-1.jpg",
-        caption: "ADAS validation workshop",
-        category: "activity"
-      },
-      {
-        url: "/images/conferences/auto-val-2.jpg",
-        caption: "Exhibition hall with industry vendors",
-        category: "venue"
-      }
-    ],
-    featured: true
+    {
+      url: "/images/conferences/infineon-ws-2.PNG",
+      caption: "Interactive 'Exit the Room' team challenge",
+      category: "activity"
+    }
+  ],
+  featured: true
   },
   {
-    id: "icst-2024",
-    title: "International Conference on Software Testing",
-    type: "conference",
-    date: "2024-04-22",
-    endDate: "2024-04-25",
+    id: "flexoo-aumovio-visit-2026",
+    title: "On-Site Testing Project Collaboration at AUMOVIO",
+    type: "business_visit",
+    date: "2026-08-13",
+    endDate: "2026-08-13",
     location: {
-      city: "Vienna",
-      country: "Austria",
-      venue: "Austria Center Vienna"
+      city: "Frankfurt am Main",
+      country: "Germany",
+      venue: "AUMOVIO SE Headquarters"
     },
-    organization: "IEEE",
-    description: "Premier academic and industry conference covering all aspects of software testing, verification, and validation. Presented research papers and industrial experience reports.",
-    shortDescription: "Leading academic conference on software testing research and practices.",
-    skills: ["Research", "Test Verification", "Academic Networking", "Publication"],
-    certificateUrl: "/docs/certificates/icst-2024.pdf",
+    organization: "Flexoo GmbH",
+    description: "Technical on-site visit and working session at partner company AUMOVIO SE. Collaborated with colleagues on a joint software and hardware testing project, leveraging specialized expertise to strengthen our corporate partnership.",
+    shortDescription: "Technical project meeting and testing collaboration at the AUMOVIO headquarters in Frankfurt.",
+    skills: ["Project Testing", "Cross-Company Collaboration", "Quality Assurance", "Partnership Networking"],
+    certificateUrl: "",
     images: [
       {
-        url: "/images/conferences/icst-1.jpg",
-        caption: "Presenting research findings",
-        category: "presentation"
-      },
-      {
-        url: "/images/conferences/icst-2.jpg",
-        caption: "Discussion with conference attendees",
-        category: "networking"
+        url: "/images/conferences/aumovio-exterior.jpg",
+        caption: "Outside the AUMOVIO location during our team visit",
+        category: "venue"
       }
     ],
     featured: false
   },
+
   {
     id: "python-test-2024",
     title: "Python Testing Workshop",
@@ -288,6 +282,30 @@ const conferenceData: Conference[] = [
     featured: true
   }
 ];
+
+// Helper function to format dates consistently
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
+};
+
+// Helper function to format date range consistently
+const formatDateRange = (startDate: string, endDate?: string) => {
+  if (!endDate) return formatDate(startDate);
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  // Check if same month and year
+  if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+    return `${start.getDate()} - ${end.getDate()} ${start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`;
+  }
+  
+  return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+};
 
 const talks = conferenceData.filter(c => c.type === 'talk');
 const graduationTalk = conferenceData.find(c => c.id === 'graduation-speech-2025');
@@ -537,8 +555,7 @@ export default function Conferences() {
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  {new Date(conference.date).toLocaleDateString()}
-                  {conference.endDate && ` - ${new Date(conference.endDate).toLocaleDateString()}`}
+                  {formatDateRange(conference.date, conference.endDate)}
                 </div>
                 <div className="flex items-center text-gray-300 text-sm mb-4">
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -623,8 +640,7 @@ export default function Conferences() {
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    {new Date(selectedConference.date).toLocaleDateString()}
-                    {selectedConference.endDate && ` - ${new Date(selectedConference.endDate).toLocaleDateString()}`}
+                    {formatDateRange(selectedConference.date, selectedConference.endDate)}
                   </div>
 
                   <div className="flex items-center text-gray-300">
@@ -660,7 +676,6 @@ export default function Conferences() {
                   </div>
                 </div>
 
-                
                 {(selectedConference.videos?.length || selectedConference.videoUrl) && (
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold text-white mb-2">Watch</h3>
